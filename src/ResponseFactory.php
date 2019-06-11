@@ -54,9 +54,9 @@ class ResponseFactory
             $props = array_merge($props, App::call($callback));
         }
 
-        array_walk_recursive($props, function (&$prop) {
-            if (is_callable($prop)) {
-                $prop = App::call($prop);
+        array_walk_recursive($props, function (&$prop, $key) {
+            if (is_callable($key)) {
+                $prop = App::call([$key, $prop]);
             }
         });
 
